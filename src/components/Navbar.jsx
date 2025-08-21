@@ -26,9 +26,8 @@ const Navbar = () => {
   };
 
   const downloadResume = () => {
-    // Add resume download functionality here
     const link = document.createElement('a');
-    link.href = '/resume.pdf'; // Add your resume PDF path
+    link.href = '/documents/AkankshaGaunsDessai_20250728_225032_0000.pdf';
     link.download = 'Akanksha_Gauns_Dessai_Resume.pdf';
     link.click();
   };

@@ -118,7 +118,15 @@ const Hero = () => {
               Get to know me
             </button>
             
-            <button className="btn-secondary text-lg px-8 py-4">
+            <button 
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = '/documents/AkankshaGaunsDessai_20250728_225032_0000.pdf';
+                link.download = 'Akanksha_Gauns_Dessai_Resume.pdf';
+                link.click();
+              }}
+              className="btn-secondary text-lg px-8 py-4"
+            >
               <Download size={20} />
               Download Resume
             </button>
