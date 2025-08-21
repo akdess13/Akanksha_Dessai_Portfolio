@@ -34,7 +34,7 @@ const Contact = () => {
       // Send email using local API during development
       const apiUrl = process.env.NODE_ENV === 'development' 
         ? 'http://localhost:3001/api/send-email' 
-        : '/api/send-email';
+        : '/.netlify/functions/send-email';
       
       const response = await fetch(apiUrl, {
         method: 'POST',
