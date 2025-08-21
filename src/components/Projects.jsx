@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Code, User, FileText } from 'lucide-react';
+import { ExternalLink, Code, User } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const Projects = () => {
@@ -93,25 +93,7 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex space-x-3">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 flex items-center justify-center space-x-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg transition-colors duration-200 font-medium text-sm"
-                      >
-                        <Github size={16} />
-                        <span>GitHub</span>
-                      </a>
-                    )}
-                    
-                    <button className="flex-1 flex items-center justify-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded-lg transition-colors duration-200 font-medium text-sm">
-                      <FileText size={16} />
-                      <span>Details</span>
-                    </button>
-                  </div>
+                  {/* Action Buttons - Removed as requested */}
                 </div>
               </div>
             </motion.div>
@@ -153,7 +135,6 @@ const Projects = () => {
             rel="noopener noreferrer"
             className="btn-primary inline-flex items-center space-x-2"
           >
-            <Github size={20} />
             <span>View More on GitHub</span>
             <ExternalLink size={16} />
           </a>

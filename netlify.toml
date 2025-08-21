@@ -5,6 +5,10 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Serverless functions
+[functions]
+  directory = "api"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

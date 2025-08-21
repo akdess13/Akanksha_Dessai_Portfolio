@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Linkedin, Github, Send, User, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Github, User, MessageSquare } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const Contact = () => {
@@ -8,6 +8,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     subject: '',
     message: ''
   });
@@ -19,13 +20,35 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // You can add email functionality or API call here
-    alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    
+    try {
+      // Send email using Google's email service
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      if (response.ok) {
+        alert('Message sent successfully! I will get back to you soon.');
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      } else {
+        alert('Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Failed to send message. Please try again.');
+    }
   };
 
   const containerVariants = {
@@ -82,12 +105,12 @@ const Contact = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold text-gray-900 dark:text-white">Email</h4>
-                      <a
-                        href={`mailto:${personal.email}`}
-                        className="text-primary-600 dark:text-primary-400 hover:underline"
-                      >
-                        {personal.email}
-                      </a>
+                                           <a
+                       href="mailto:akdessai6@gmail.com"
+                       className="text-primary-600 dark:text-primary-400 hover:underline"
+                     >
+                       akdessai6@gmail.com
+                     </a>
                     </div>
                   </div>
 
@@ -236,6 +259,28 @@ const Contact = () => {
                   </div>
                 </div>
 
+                {/* Phone Field */}
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Phone Number
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Phone className="w-5 h-5 text-gray-400" />
+                    </div>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      required
+                      className="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
+                      placeholder="+91 98765 43210"
+                    />
+                  </div>
+                </div>
+
                 {/* Subject Field */}
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -280,9 +325,14 @@ const Contact = () => {
                   type="submit"
                   className="w-full btn-primary py-4 text-lg"
                 >
-                  <Send className="w-5 h-5" />
+                  <Mail className="w-5 h-5" />
                   Send Message
                 </button>
+                
+                {/* Help Text */}
+                <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-4">
+                  📧 Message will be sent directly to Akanksha's inbox. No extra apps needed!
+                </p>
               </form>
             </div>
           </motion.div>

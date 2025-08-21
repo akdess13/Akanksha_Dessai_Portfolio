@@ -27,7 +27,7 @@ const Navbar = () => {
 
   const downloadResume = () => {
     const link = document.createElement('a');
-    link.href = '/documents/AkankshaGaunsDessai_20250728_225032_0000.pdf';
+    link.href = '/resume.pdf';
     link.download = 'Akanksha_Gauns_Dessai_Resume.pdf';
     link.click();
   };
