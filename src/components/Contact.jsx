@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Linkedin, Github, User, MessageSquare } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
+import Toast from './Toast';
 
 const Contact = () => {
   const { personal } = portfolioData;
@@ -11,6 +12,12 @@ const Contact = () => {
     phone: '',
     subject: '',
     message: ''
+  });
+
+  const [toast, setToast] = useState({
+    isVisible: false,
+    message: '',
+    type: 'success'
   });
 
   const handleChange = (e) => {
@@ -24,8 +31,12 @@ const Contact = () => {
     e.preventDefault();
     
     try {
-      // Send email using Google's email service
-      const response = await fetch('/api/send-email', {
+      // Send email using local API during development
+      const apiUrl = process.env.NODE_ENV === 'development' 
+        ? 'http://localhost:3001/api/send-email' 
+        : '/api/send-email';
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,14 +51,26 @@ const Contact = () => {
       });
 
       if (response.ok) {
-        alert('Message sent successfully! I will get back to you soon.');
+        setToast({
+          isVisible: true,
+          message: 'Message sent successfully! I will get back to you soon.',
+          type: 'success'
+        });
         setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
       } else {
-        alert('Failed to send message. Please try again.');
+        setToast({
+          isVisible: true,
+          message: 'Failed to send message. Please try again.',
+          type: 'error'
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Failed to send message. Please try again.');
+      setToast({
+        isVisible: true,
+        message: 'Failed to send message. Please try again.',
+        type: 'error'
+      });
     }
   };
 
@@ -358,6 +381,14 @@ const Contact = () => {
           </div>
         </motion.div>
       </div>
+      
+      {/* Toast Notification */}
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        isVisible={toast.isVisible}
+        onClose={() => setToast({ ...toast, isVisible: false })}
+      />
     </section>
   );
 };
