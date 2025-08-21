@@ -4,15 +4,12 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  SECRETS_SCAN_OMIT_PATHS = "GMAIL_SETUP.md"
 
 # Serverless functions
 [functions]
   directory = "api"
   node_bundler = "esbuild"
-
-# Disable secrets scanning for documentation files
-[build.environment]
-  SECRETS_SCAN_OMIT_PATHS = "GMAIL_SETUP.md"
 
 [[redirects]]
   from = "/*"
