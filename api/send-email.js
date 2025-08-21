@@ -1,10 +1,26 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
+  // Handle CORS preflight requests
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+      },
+      body: ''
+    };
+  }
+
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
       body: JSON.stringify({ error: 'Method not allowed' })
     };
   }
@@ -16,12 +32,15 @@ exports.handler = async (event, context) => {
     if (!name || !email || !subject || !message) {
       return {
         statusCode: 400,
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        },
         body: JSON.stringify({ error: 'Missing required fields' })
       };
     }
 
     // Create transporter using Gmail
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.GMAIL_USER, // Your Gmail address
@@ -32,7 +51,7 @@ exports.handler = async (event, context) => {
     // Email content
     const mailOptions = {
       from: process.env.GMAIL_USER,
-      to: 'akdessai6@gmail.com', // Your email where you want to receive messages
+      to: process.env.GMAIL_USER, // Send to yourself
       subject: `Portfolio Contact: ${subject}`,
       html: `
         <h2>New Contact Form Submission</h2>
@@ -52,6 +71,9 @@ exports.handler = async (event, context) => {
 
     return {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
       body: JSON.stringify({ message: 'Email sent successfully' })
     };
 
@@ -59,6 +81,9 @@ exports.handler = async (event, context) => {
     console.error('Error sending email:', error);
     return {
       statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
       body: JSON.stringify({ error: 'Failed to send email' })
     };
   }

@@ -12,7 +12,7 @@ This guide will help you set up your Gmail account to send emails directly from 
 ## 🔑 **Step 2: Generate App Password**
 
 1. Go to [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
-2. Sign in with your Gmail account: **akdessai6@gmail.com**
+2. Sign in with your Gmail account: **your-email@gmail.com**
 3. Under **"Select app"**, choose **"Mail"**
 4. Under **"Select device"**, choose **"Other (Custom name)"**
 5. Type: **"Portfolio Contact Form"**
@@ -29,7 +29,7 @@ This guide will help you set up your Gmail account to send emails directly from 
 
 ### **Variable 1:**
 - **Key**: `GMAIL_USER`
-- **Value**: `akdessai6@gmail.com`
+- **Value**: `your-email@gmail.com`
 
 ### **Variable 2:**
 - **Key**: `GMAIL_APP_PASSWORD`
@@ -43,13 +43,13 @@ This guide will help you set up your Gmail account to send emails directly from 
 2. **Netlify will automatically rebuild** with the new email function
 3. **Test the contact form** on your live website
 4. **Fill out the form** and click "Send Message"
-5. **Check your inbox** at akdessai6@gmail.com
+5. **Check your inbox** at your-email@gmail.com
 
 ## 📱 **How It Works Now:**
 
 1. **Visitor fills contact form** → Name, Email, Phone, Subject, Message
 2. **Clicks "Send Message"**
-3. **Email sent directly** to akdessai6@gmail.com
+3. **Email sent directly** to your-email@gmail.com
 4. **No extra apps open**
 5. **No extra windows**
 6. **Works on all devices**
@@ -57,8 +57,8 @@ This guide will help you set up your Gmail account to send emails directly from 
 ## 🎯 **What You'll Receive:**
 
 ```
-From: akdessai6@gmail.com
-To: akdessai6@gmail.com
+From: your-email@gmail.com
+To: your-email@gmail.com
 Subject: Portfolio Contact: [their subject]
 
 New Contact Form Submission
